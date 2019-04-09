@@ -62,12 +62,9 @@ function hasChildren(x){
 hasChildren(findChildren);
 
 populateFields.forEach((x,i) => {
-  if(itemKeys[i].includes('img')){
-    x.setAttribute("src", x);
-  }
+  itemKeys[i].includes('img') ? x.setAttribute("src", x):false;
   x.innerHTML = identifier[i]
 })
 
-console.log(itemKeys)
 
 
