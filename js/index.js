@@ -60,11 +60,25 @@ function hasChildren(x){
 }
 
 hasChildren(findChildren);
-
+//Assignment Goals
 populateFields.forEach((x,i) => {
-  itemKeys[i].includes('img') ? x.setAttribute("src", x):false;
-  x.innerHTML = identifier[i]
+  x.parentElement.nodeName == 'NAV' ? x.style.color = "green":false;//Set Nav Color Green
+  itemKeys[i].includes('img') ? x.setAttribute("src", identifier[i]):false;//Set Img Src
+  x.innerHTML = identifier[i];//Set InnerHTML
 })
+
+
+function create(parentElement,newTag,tagContent,where){
+  parent = document.querySelector(parentElement);
+  element = document.createElement(newTag);
+  element.innerHTML = tagContent;
+  where == 'p' ? parent.prepend(element):parent.appendChild(element);
+}
+console.log(parent.innerHtml);
+create('footer','div','Hello','p');
+create('footer','div','Hello','a');
+
+//parent.beforeFirstChild(create('div', 'I am Appended'))
 
 
 
