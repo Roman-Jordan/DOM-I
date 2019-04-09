@@ -36,35 +36,38 @@ const siteContent = {
     "copyright" : "Copyright Great Idea! 2018"
   },
 };
-
-// Example: Update the img src for the logo
-// function byClass(class,operator, obj,prop){
-//   let select = document.getElementsByClassName(class);
-//   const operation ={
-//     0 : select.setAttribute(prop[3], siteContent[prop[1]][prop[2]]),
-//     1 : select.innerHTML = siteContent[prop[1]][prop[2]],
-//   }
-//   return operation.operator;
-// }
-
-
-function byId(id,operator, obj,prop){
-  let select = document.getElementById(id);
-  const operation ={
-    Attr : function(){select.setAttribute(prop[2], obj[prop[0]][prop[1]])},
-    HTML : function(){select.innerHTML = obj[prop[1]][prop[2]]}
-  }
-  return operation[operator]();
-}
-byId('logo-img','Attr',siteContent,['nav','img-src','src']);
-byId('cta-img','Attr',siteContent,['cta','img-src','src']);
-
-
-// Header Nav Loop
-let navItems = siteContent.nav;
-let navSelector = document.querySelectorAll("header nav a");
-navSelector.forEach((x,i) => {
-    x.innerHTML = navItems[String(`nav-item-${i + 1}`)];
+let itemKeys = [];
+let identifier = [];
+let populateFields = [];
+Object.keys(siteContent).forEach(x => {
+  Object.values(siteContent[x]).forEach(y => {
+    identifier.push(y);
+  })
+  Object.keys(siteContent[x]).forEach(y => {
+    itemKeys.push(y);
+  })
 });
+
+let findChildren = document.querySelector('.container');
+
+function hasChildren(x){
+  x.childNodes.forEach((x,i) => {
+    x.childNodes !== 0 ? hasChildren(x):false
+    if(x.nodeName !== '#text' && x.childNodes.length == 0){
+      populateFields.push(x);
+    }
+  })
+}
+
+hasChildren(findChildren);
+
+populateFields.forEach((x,i) => {
+  if(itemKeys[i].includes('img')){
+    x.setAttribute("src", x);
+  }
+  x.innerHTML = identifier[i]
+})
+
+console.log(itemKeys)
 
 
